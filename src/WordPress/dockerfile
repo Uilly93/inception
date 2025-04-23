@@ -1,2 +1,9 @@
-FROM debian:bullseye 
-# a modifier
+FROM debian:bullseye
+
+RUN apt update && apt install -y \
+    php-fpm \
+    php-mysql \
+    wget unzip curl \
+    && apt clean && rm -rf /var/lib/apt/lists/*
+
+CMD ["php-fpm", "-F"]
