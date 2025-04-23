@@ -1,0 +1,51 @@
+# services:
+#   nginx:
+#     build: Nginx/
+#     ports:
+#       - "443:443"
+#     networks:
+#       - inception
+
+# networks:
+#   inception:
+#     driver: bridge
+
+services:
+  nginx:
+    build:
+      context: ./Nginx
+      dockerfile: dockerfile
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+
+  wordpress:
+    build:
+      context: ./WordPress
+      dockerfile: dockerfile
+    volumes:
+      - wordpress_data:/var/www/html
+    depends_on:
+      - mariadb
+    networks:
+      - inception
+
+  mariadb:
+    build:
+      context: ./MariaDB
+      dockerfile: dockerfile
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - inception
+volumes:
+  wordpress_data:
+  mariadb_data:
+networks:
+  inception:
+    driver: bridge
