@@ -1,4 +1,4 @@
 CREATE DATABASE IF NOT EXISTS wordpress;
-CREATE USER 'wnocchi'@'%' IDENTIFIED BY 'password';
+CREATE USER 'wnocchi'@'%' IDENTIFIED BY 'qwerty1234';
 GRANT ALL PRIVILEGES ON wordpress.* TO 'wnocchi'@'%';
 FLUSH PRIVILEGES;

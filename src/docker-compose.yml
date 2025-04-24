@@ -3,6 +3,7 @@ services:
     build:
       context: ./Nginx
       dockerfile: dockerfile
+    env_file: .env
     ports:
       - "443:443"
     volumes:
@@ -16,6 +17,7 @@ services:
     build:
       context: ./WordPress
       dockerfile: dockerfile
+    env_file: .env
     volumes:
       - wordpress_data:/var/www/html
     environment:
@@ -32,6 +34,7 @@ services:
     build:
       context: ./MariaDB
       dockerfile: dockerfile
+    env_file: .env
     volumes:
       - mariadb_data:/var/lib/mysql
     environment:
