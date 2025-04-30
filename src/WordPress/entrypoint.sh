@@ -20,4 +20,6 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     --allow-root
 fi
 
+chown -R www-data:www-data /var/www/html
+
 exec php-fpm -F
