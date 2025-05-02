@@ -1,8 +1,8 @@
 #!/bin/bash
-set -e
 
 if [ ! -f /var/www/html/wp-config.php ]; then
   wp core download --path=/var/www/html --allow-root
+  echo aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
   wp config create \
     --dbname=$WORDPRESS_DB_NAME \
     --dbuser=$WORDPRESS_DB_USER \
@@ -10,6 +10,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
     --dbhost=$WORDPRESS_DB_HOST \
     --path=/var/www/html \
     --allow-root
+  echo bbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
   wp core install \
     --url=$DOMAIN_NAME \
     --title="Inception" \
@@ -22,4 +23,7 @@ fi
 
 chown -R www-data:www-data /var/www/html
 
-exec php-fpm -F
+echo ccccccccccccccccccccccccccccccccccccc
+sleep 500
+cat
+php-fpm -F

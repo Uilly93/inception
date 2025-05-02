@@ -14,9 +14,10 @@ RUN mkdir -p /etc/ssl/private /etc/ssl/certs && \
     -subj "/C=FR/ST=Paris/L=Paris/O=42/OU=Inception/CN=wnocchi.42.fr" && \
     chmod 777 /etc/ssl/private/nginx.key /etc/ssl/certs/nginx.crt
 
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 443
 
+CMD ["cat"]
 CMD ["nginx", "-g", "daemon off;"]
 
