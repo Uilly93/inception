@@ -18,7 +18,14 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 chmod +x wp-cli.phar && \
 mv wp-cli.phar /usr/local/bin/wp
 
+RUN mkdir -p /var/www/html
+
+EXPOSE 9000
+
+COPY www.conf /etc/php/7.4/fpm/pool.d
 # copy and run entrypoint
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
-ENTRYPOINT ["bash", "/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["sh", "/usr/local/bin/entrypoint.sh"]
+
+# CMD [ "php-fpm", "-F" ]
