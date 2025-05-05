@@ -3,22 +3,16 @@ FROM debian:bullseye
 RUN apt update && apt install -y \
     php \
     php-fpm \
-    php-mysql \
-    php-opcache \
-    php-mbstring \
-    php-xml \
-    php-gd \
-    php-curl \
     netcat \
-    wget unzip curl \
+    wget unzip \
     && apt clean && rm -rf /var/lib/apt/lists/*
 
 
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
+RUN mkdir -p /var/www/html
+RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
 chmod +x wp-cli.phar && \
 mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir -p /var/www/html
 
 EXPOSE 9000
 

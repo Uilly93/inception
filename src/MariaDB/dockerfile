@@ -1,15 +1,23 @@
 FROM debian:bullseye
 
+
 RUN apt update && \
-    apt install -y mariadb-server netcat && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
+apt install -y mariadb-server netcat && \
+apt clean && \
+rm -rf /var/lib/apt/lists/*
+
+EXPOSE 3306
 
 RUN mkdir -p /run/mysqld && chown -R  mysql:mysql /run/mysqld && chmod 777 /run/mysqld
 
-COPY init.sql /docker-entrypoint-initdb.d/
+# USER mysql
+
+COPY entrypoint.sh /docker-entrypoint-initdb.d/
 COPY my.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-USER mysql
+# COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+# RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["sh", "/docker-entrypoint-initdb.d/entrypoint.sh"]
 
-CMD [ "mysqld" ]
+
+CMD [ "mariadbd", "--datadir=/var/lib/mysql"]

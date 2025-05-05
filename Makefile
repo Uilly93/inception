@@ -16,10 +16,12 @@ restart: down up
 logs:
 	docker compose -f $(COMPOSE_FILE) logs -f
 
-clean:
+clean: down
 	docker compose -f $(COMPOSE_FILE) down --volumes --rmi all
 
-prune:
+prune: down clean
 	docker system prune -af --volumes
 
-rebuild: prune build
+rebuild: clean up
+
+debug: rebuild logs
