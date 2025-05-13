@@ -1,6 +1,5 @@
 #!/bin/bash
 
-echo $HOME
 # create db
 if [ ! -f "/var/lib/mysql/$MYSQL_DATABASE" ]; then 
     echo CREATING MARIADB
@@ -12,4 +11,4 @@ if [ ! -f "/var/lib/mysql/$MYSQL_DATABASE" ]; then
     mariadb -e "FLUSH PRIVILEGES;"
     /etc/init.d/mariadb stop
 fi
-exec "$@"
+exec mariadbd --datadir=/var/lib/mysql

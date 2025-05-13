@@ -24,5 +24,4 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 fi
 chown -R www-data:www-data /var/www/html
 mkdir -p /run/php
-echo ccccccccccccccccccccccccccccccccccccc
 exec php-fpm7.4 -F
