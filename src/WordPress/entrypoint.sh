@@ -21,6 +21,11 @@ if [ ! -f /var/www/html/wp-config.php ]; then
   wp user create --allow-root $WP_USER $WP_USER_MAIL --user_pass=$WP_USER_PASSWD --path="/var/www/html"
   wp theme install online-video-games  --allow-root --path="/var/www/html"
   wp theme activate online-video-games  --allow-root --path="/var/www/html"
+  wp config set WP_HOME "https://$DOMAIN_NAME" --allow-root
+  wp config set WP_SITEURL "https://$DOMAIN_NAME" --allow-root
+  wp search-replace "http://$DOMAIN_NAME" "https://$DOMAIN_NAME" --all-tables --allow-root
+  wp cache flush --allow-root
+
 fi
 chown -R www-data:www-data /var/www/html
 mkdir -p /run/php
