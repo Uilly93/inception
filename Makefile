@@ -1,29 +1,28 @@
 COMPOSE_FILE=src/docker-compose.yml
+VOLUMES_DIR=~/data/wordpress ~/data/mariadb 
 
-.PHONY: build up down restart logs clean prune
-
-build: mkdir -p /home/wnocchi/data
-	docker compose -f $(COMPOSE_FILE) build
-
-up:
-	docker compose -f $(COMPOSE_FILE) up -d
+all:
+	mkdir -p $(VOLUMES_DIR)
+	docker compose -f $(COMPOSE_FILE) up -d --build
 
 down:
 	docker compose -f $(COMPOSE_FILE) down
 
-restart: down up
-
-re: down build up
+restart: down all
 
 logs:
 	docker compose -f $(COMPOSE_FILE) logs -f
 
-clean: down rm -rf /home/wnocchi/data
-	docker compose -f $(COMPOSE_FILE) down --volumes --rmi all
+clean: down
+	sudo rm -rf $(VOLUMES_DIR)
 
 prune: down clean
 	docker system prune -af --volumes
 
-rebuild: clean up
+fclean: clean prune
+
+re: fclean all
 
 debug: rebuild logs
+
+.PHONY: all up down restart logs clean prune re fclean

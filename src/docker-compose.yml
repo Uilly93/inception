@@ -34,9 +34,19 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
-volumes:
-  wordpress_data:
-  mariadb_data:
 networks:
   inception:
     driver: bridge
+volumes:
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/data/wordpress
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ~/data/mariadb
