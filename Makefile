@@ -2,7 +2,7 @@ COMPOSE_FILE=src/docker-compose.yml
 
 .PHONY: build up down restart logs clean prune
 
-build:
+build: mkdir -p /home/wnocchi/data
 	docker compose -f $(COMPOSE_FILE) build
 
 up:
@@ -13,10 +13,12 @@ down:
 
 restart: down up
 
+re: down build up
+
 logs:
 	docker compose -f $(COMPOSE_FILE) logs -f
 
-clean: down
+clean: down rm -rf /home/wnocchi/data
 	docker compose -f $(COMPOSE_FILE) down --volumes --rmi all
 
 prune: down clean
