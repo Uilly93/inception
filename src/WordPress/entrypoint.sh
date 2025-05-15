@@ -1,6 +1,5 @@
 # Création de wp-config.php si absent
 if [ ! -f /var/www/html/wp-config.php ]; then
-  mkdir -p /var/www/html 
   cd /var/www/html 
   wp core download --allow-root --path="/var/www/html" 
   wp config create --allow-root \
